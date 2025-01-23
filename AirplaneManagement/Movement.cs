@@ -6,9 +6,9 @@ public class Movement : Executor
     public Vector2 position;
     float speed = 10;
 
-    public Vector2 chunkPosition;
-    int chunkWidth = 2000;
-    int chunkHeight = 857;
+    public float zoom = 1;
+    float maxZoom = 5f;
+    float minZoom = 1f;
 
     public Movement()
     {
@@ -17,13 +17,17 @@ public class Movement : Executor
 
     public void New()
     {
-        throw new NotImplementedException();
     }
 
     public void Start()
     {
-        throw new NotImplementedException();
     }
+
+    //Boundery 
+    // screenwidth/2
+    // screenheight/2
+    // -screenwidth/2
+    // -screenheight/2
 
     public void Update()
     {
@@ -31,28 +35,26 @@ public class Movement : Executor
         float y = position.Y;
         if (Raylib.IsKeyDown(KeyboardKey.W))
         {
-            y += speed;
+            y -= speed * zoom/maxZoom;
         }
         if (Raylib.IsKeyDown(KeyboardKey.S))
         {
-            y -= speed;
+            y += speed * zoom/maxZoom;
         }
         if (Raylib.IsKeyDown(KeyboardKey.A))
         {
-            x += speed;
+            x -= speed * zoom/maxZoom;
         }
         if (Raylib.IsKeyDown(KeyboardKey.D))
         {
-            x -= speed;
+            x += speed * zoom/maxZoom;
         }
 
         
-        position = new Vector2(x, y);
-        //Calculate closest chunk position
-        chunkPosition = new Vector2(
-            -MathF.Round(position.X / chunkWidth) * chunkWidth, 
-            -MathF.Round(position.Y / chunkHeight) * chunkHeight
-        );
-    
+        position = new Vector2(
+            Math.Clamp(x, -Raylib.GetScreenWidth()/2f, Raylib.GetScreenWidth()/2f), 
+            Math.Clamp(y, -Raylib.GetScreenWidth()/2f, Raylib.GetScreenWidth()/2f)
+            );
+        zoom = Math.Clamp(Raylib.GetMouseWheelMove() * 0.1f + zoom, minZoom, maxZoom);
     }
 }
