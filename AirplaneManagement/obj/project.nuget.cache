@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "6Lku6CrV3ER37heN1SiFgblTT9XX9dmSgX7B0c+ajJSDx4NYLrfm9LIABr2+Xl8vG37Wwh5TOfj0AQyPUSp4eQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Sam.Lindfors\\Desktop\\Prog\\ProjAirplane\\AirplaneManagement\\AirplaneManagement.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sam.Lindfors\\.nuget\\packages\\raylib-cs\\7.0.0\\raylib-cs.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
