@@ -43,3 +43,4 @@ c:\Users\lindf\OneDrive\Dokument\GitHub\AirportManagement\AirplaneManagement\obj
 c:\Users\lindf\OneDrive\Dokument\GitHub\AirportManagement\AirplaneManagement\obj\Debug\net8.0\AirplaneManagement.pdb
 C:\Users\lindf\OneDrive\Dokument\GitHub\AirportManagement\AirplaneManagement\obj\Debug\net8.0\AirplaneManagement.genruntimeconfig.cache
 C:\Users\lindf\OneDrive\Dokument\GitHub\AirportManagement\AirplaneManagement\obj\Debug\net8.0\ref\AirplaneManagement.dll
+C:\Users\Sam.Lindfors\Desktop\Prog\ProjAirplane\AirplaneManagement\obj\Debug\net8.0\AirplaneManagement.sourcelink.json

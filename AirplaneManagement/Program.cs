@@ -23,47 +23,47 @@ Movement movement = new Movement();
 
 List<Airport> airports = new List<Airport>()
 {
-  new Airport(new Vector2(7,77)),//stockholm
-  new Airport(new Vector2(-160,150)),//göteborg
-  new Airport(new Vector2(-120,230)),//malmö
-  new Airport(new Vector2(-10,60)),//uppsala
-  new Airport(new Vector2(-40,120)), //linköping
-  new Airport(new Vector2(-90,77)), //örebro
-  new Airport(new Vector2(-30,-20)), //sundsvall
-  new Airport(new Vector2(80,-160)), //Luleå
-  new Airport(new Vector2(-100,140)), //Jönköping
-  new Airport(new Vector2(0,-230)), //Kiruna
-  new Airport(new Vector2(-160,-60)), //Åre
+  new Airport("Stockholm", new Vector2(7,77)),//stockholm
+  new Airport("Göteborg", new Vector2(-160,150)),//göteborg
+  new Airport("Malmö", new Vector2(-120,230)),//malmö
+  new Airport("Uppsala", new Vector2(-10,60)),//uppsala
+  new Airport("Linköping", new Vector2(-40,120)), //linköping
+  new Airport("Örebro", new Vector2(-90,77)), //örebro
+  new Airport("Sundsvall", new Vector2(-30,-20)), //sundsvall
+  new Airport("Luleå", new Vector2(80,-160)), //Luleå
+  new Airport("Jönköping", new Vector2(-100,140)), //Jönköping
+  new Airport("Kuruna", new Vector2(0,-230)), //Kiruna
+  new Airport("Åre", new Vector2(-160,-60)), //Åre
 
-  new Airport(new Vector2(-220,60)), //Oslo
-  new Airport(new Vector2(-350,100)), //Stavanger
-  new Airport(new Vector2(-360,20)), //Bergen
-  new Airport(new Vector2(-290,-40)), //Ålesund
-  new Airport(new Vector2(-210,-90)), //Trondheim
-  new Airport(new Vector2(100,-290)), //Alta
+  new Airport("Oslo", new Vector2(-220,60)), //Oslo
+  new Airport("Stavanger", new Vector2(-350,100)), //Stavanger
+  new Airport("Bergen", new Vector2(-360,20)), //Bergen
+  new Airport("Ålesund", new Vector2(-290,-40)), //Ålesund
+  new Airport("Trondheim", new Vector2(-210,-90)), //Trondheim
+  new Airport("Alta", new Vector2(100,-290)), //Alta
 
-  new Airport(new Vector2(190,50)), //Helsinki
-  new Airport(new Vector2(140,40)), //Turku
-  new Airport(new Vector2(175,0)), //Tampere
-  new Airport(new Vector2(200,-130)), //Oulu
-  new Airport(new Vector2(205,-190)), //Rovaniemi
-  new Airport(new Vector2(190,-280)), //Karigasnemi
-  new Airport(new Vector2(340, -30)), //Joensuu
+  new Airport("Helsinki", new Vector2(190,50)), //Helsinki
+  new Airport("Turku", new Vector2(140,40)), //Turku
+  new Airport("Tampere", new Vector2(175,0)), //Tampere
+  new Airport("Oulu", new Vector2(200,-130)), //Oulu
+  new Airport("Rovaniemi", new Vector2(205,-190)), //Rovaniemi
+  new Airport("Karigasnemi", new Vector2(190,-280)), //Karigasnemi
+  new Airport("Joensuu", new Vector2(340, -30)), //Joensuu
 
-  new Airport(new Vector2(220, 100)), //Tallinn
+  new Airport("Tallinn", new Vector2(220, 100)), //Tallinn
 
-  new Airport(new Vector2(185, 195)), //Riga
+  new Airport("Riga", new Vector2(185, 195)), //Riga
 
-  new Airport(new Vector2(140, 240)), //Klaipeda
-  new Airport(new Vector2(250, 280)), //Vilnius
+  new Airport("Klaipeda", new Vector2(140, 240)), //Klaipeda
+  new Airport("Vilnius", new Vector2(250, 280)), //Vilnius
 
-  new Airport(new Vector2(30, 290)), //Gdansk
+  new Airport("Gdansk", new Vector2(30, 290)), //Gdansk
 
-  new Airport(new Vector2(-240, 290)), //Hamburg
+  new Airport("Hamburg",new Vector2(-240, 290)), //Hamburg
 
-  new Airport(new Vector2(-150, 250)), //Copenhagen
-  new Airport(new Vector2(-250, 250)), //Flyn
-  new Airport(new Vector2(-225, 180)), //Aalborg
+  new Airport("Copenhagen", new Vector2(-150, 250)), //Copenhagen
+  new Airport("Flyn", new Vector2(-250, 250)), //Flyn
+  new Airport("Aalborg", new Vector2(-225, 180)), //Aalborg
 };
 
 
