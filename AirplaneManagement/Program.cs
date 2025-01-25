@@ -54,6 +54,7 @@ while (!Raylib.WindowShouldClose())
   DrawAirportDebugBox();
   Raylib.EndMode2D();
   Register.LateUpdateExecutors(data);
+  Raylib.DrawText("Money: " + data.money, 10, 35, 20, Color.Black);
 
   Raylib.EndDrawing();
 

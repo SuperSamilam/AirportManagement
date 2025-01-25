@@ -2,7 +2,7 @@ using System.Numerics;
 using Raylib_cs;
 
 public static class CollisionDetection
-{   
+{
     //Checks if point is instead rotated rect
     public static bool CheckCollisionOnRotatedRect(Vector2 point, Vector2 pos, float width, float height, float rotation)
     {
@@ -29,4 +29,6 @@ public static class CollisionDetection
 
         return corners;
     }
+
+
 }
