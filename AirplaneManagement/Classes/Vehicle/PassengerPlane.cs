@@ -3,7 +3,7 @@ using Raylib_cs;
 
 public class PassengerPlane : Plane
 {
-    static int levelPassangerMultplier = 6;
+    public static int levelPassangerMultplier = 6;
     static Texture2D[] sprites = new Texture2D[5] {
         Raylib.LoadTexture(@"Level1.png"),
         Raylib.LoadTexture(@"Level2.png"),
@@ -11,14 +11,14 @@ public class PassengerPlane : Plane
         Raylib.LoadTexture(@"Level4.png"),
         Raylib.LoadTexture(@"Level5.png")
     };
-    public Person[] passangers;
+    public List<Person> passangers;
     public PassengerPlane(Route route) : base(route)
     {
-        passangers = new Person[levelPassangerMultplier];
+        passangers = new List<Person>();
         sprite = sprites[0];
     }
 
-    void Upgrade()
+    public void Upgrade()
     {
         base.Upgrade();
 
@@ -28,14 +28,8 @@ public class PassengerPlane : Plane
         }
         else
         {
-            sprite = sprites[level];
+            sprite = sprites[level-1];
         }
 
-        Person[] newPassangers = new Person[level * levelPassangerMultplier];
-
-        for (int i = 0; i < passangers.Length; i++)
-        {
-            newPassangers[i] = passangers[i];
-        }
     }
 }

@@ -56,7 +56,7 @@ public class RouteBuilder : Executor
             Raylib.DrawCircleV(mousePos, 5, Color.Blue);
             Raylib.DrawCircleV(p3, 5, Color.Blue);
 
-            float steps = 5;
+            float steps = 25;
             points = new Vector2[(int)steps+1]; //points on curve is steps - 1, so we add 1 for the start and end to get 2 extra points
             points[0] = startAirport.position;
             points[points.Length-1] = mousePos;

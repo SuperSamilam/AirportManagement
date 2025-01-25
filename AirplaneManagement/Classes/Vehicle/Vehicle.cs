@@ -12,14 +12,15 @@ public class Vehicle : Gameobject
     public Vehicle() : base()
     {
         this.speed = levelSpeedMultplier;
+        level = 1;
     }
 
     public void Upgrade()
     {
+        if (level == 10)
+            return;
         level++;
         speed = level * levelSpeedMultplier;
-
-        Console.WriteLine("UPDTAE");
     }
 }
 

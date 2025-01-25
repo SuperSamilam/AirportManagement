@@ -1,3 +1,4 @@
+using System.Dynamic;
 using System.Numerics;
 using Raylib_cs;
 
@@ -22,7 +23,17 @@ public class CargoPlane : Plane
         sprite = sprites[0];
     }
 
-     void Upgrade()
+    public int GetCargoWeight()
+    {
+        int weight = 0;
+        for (int i = 0; i < cargo.Count; i++)
+        {
+            weight += cargo[i].weight;
+        }
+        return weight;
+    }
+
+    public void Upgrade()
     {
         base.Upgrade();
 

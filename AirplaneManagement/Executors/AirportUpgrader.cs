@@ -34,6 +34,7 @@ public class AirportUpgrader : Executor
                 }
             }
         }
+        //Drawing UI
         if (airportSelected)
         {
             Raylib.DrawCircle((int)selectedAirport.position.X, (int)selectedAirport.position.Y, 9, Color.Green);
