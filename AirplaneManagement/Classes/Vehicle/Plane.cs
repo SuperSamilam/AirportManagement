@@ -5,10 +5,13 @@ public class Plane : Vehicle
 {
     public Vector2 pos;
     public Route route;
+    public int currentPoint;
 
-    public Plane(float speed, Texture2D sprite, Vector2 pos, Route route) : base(speed, sprite)
+    public Plane(Route route) : base()
     {
-        this.pos = pos;
+        
         this.route = route;
+        pos = route.points[0];
+        currentPoint = 0;
     }
 }

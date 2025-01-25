@@ -15,21 +15,8 @@ public class Movement : Executor
         Register.executorRegistry.Add(this);
     }
 
-    public void New()
-    {
-    }
 
-    public void Start()
-    {
-    }
-
-    //Boundery 
-    // screenwidth/2
-    // screenheight/2
-    // -screenwidth/2
-    // -screenheight/2
-
-    public void Update()
+    public void Update(Gamedata gamedata)
     {
         float x = position.X;
         float y = position.Y;
@@ -50,11 +37,23 @@ public class Movement : Executor
             x += speed * zoom/maxZoom;
         }
 
+        zoom = Math.Clamp(Raylib.GetMouseWheelMove() * 0.1f + zoom, minZoom, maxZoom);
+        
+        float minX = Raylib.GetScreenWidth() / 2 / zoom - 388;
+        float minY = Raylib.GetScreenHeight() / 2 / zoom - 344;
+        float maxX = 774 - Raylib.GetScreenWidth() / 2 / zoom - 388;
+        float maxY = 681 - Raylib.GetScreenHeight() / 2 / zoom - 344;
+
         
         position = new Vector2(
-            Math.Clamp(x, -Raylib.GetScreenWidth()/2f, Raylib.GetScreenWidth()/2f), 
-            Math.Clamp(y, -Raylib.GetScreenWidth()/2f, Raylib.GetScreenWidth()/2f)
-            );
-        zoom = Math.Clamp(Raylib.GetMouseWheelMove() * 0.1f + zoom, minZoom, maxZoom);
+            Math.Clamp(x, minX, maxX), 
+            Math.Clamp(y, minY, maxY)
+        );
+
+    }
+
+    public void LateUpdate(Gamedata gamedata)
+    {
+        
     }
 }

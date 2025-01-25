@@ -1,8 +1,7 @@
 
 public interface Executor
 {
-        void New();
-        void Start();
-        void Update();
+        void Update(Gamedata gamedata);
+        void LateUpdate(Gamedata gamedata);
 }
 

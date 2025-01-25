@@ -3,13 +3,23 @@ using Raylib_cs;
 
 public class Vehicle : Gameobject
 {
+    public static int levelSpeedMultplier = 1;
+
+    public int level;
     public float speed;
     public Texture2D sprite;
 
-    public Vehicle(float speed, Texture2D sprite) : base()
+    public Vehicle() : base()
     {
-        this.speed = speed;
-        this.sprite = sprite;
+        this.speed = levelSpeedMultplier;
+    }
+
+    public void Upgrade()
+    {
+        level++;
+        speed = level * levelSpeedMultplier;
+
+        Console.WriteLine("UPDTAE");
     }
 }
 
