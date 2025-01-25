@@ -9,7 +9,6 @@ public class Airport : Building
   new Airport("Stockholm", new Vector2(7,77)),//stockholm
   new Airport("Göteborg", new Vector2(-160,150)),//göteborg
   new Airport("Malmö", new Vector2(-120,230)),//malmö
-  new Airport("Uppsala", new Vector2(-10,60)),//uppsala
   new Airport("Linköping", new Vector2(-40,120)), //linköping
   new Airport("Örebro", new Vector2(-90,77)), //örebro
   new Airport("Sundsvall", new Vector2(-30,-20)), //sundsvall

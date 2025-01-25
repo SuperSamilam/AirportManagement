@@ -6,6 +6,7 @@ public class Plane : Vehicle
     public Vector2 pos;
     public Route route;
     public int currentPoint;
+    public int dir;
 
     public Plane(Route route) : base()
     {
@@ -13,5 +14,6 @@ public class Plane : Vehicle
         this.route = route;
         pos = route.points[0];
         currentPoint = 0;
+        dir = 1;
     }
 }

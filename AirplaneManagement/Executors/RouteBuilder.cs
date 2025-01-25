@@ -52,11 +52,11 @@ public class RouteBuilder : Executor
             Vector2 p3 = middlePos + birnormal * Vector2.Distance(startAirport.position, mousePos) / 3;
 
             //Debug purposes
-            // Raylib.DrawCircleV(startAirport.position, 5, Color.Blue);
-            // Raylib.DrawCircleV(mousePos, 5, Color.Blue);
-            // Raylib.DrawCircleV(p3, 5, Color.Blue);
+            Raylib.DrawCircleV(startAirport.position, 5, Color.Blue);
+            Raylib.DrawCircleV(mousePos, 5, Color.Blue);
+            Raylib.DrawCircleV(p3, 5, Color.Blue);
 
-            float steps = 15;
+            float steps = 5;
             points = new Vector2[(int)steps+1]; //points on curve is steps - 1, so we add 1 for the start and end to get 2 extra points
             points[0] = startAirport.position;
             points[points.Length-1] = mousePos;

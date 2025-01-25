@@ -23,7 +23,7 @@ camera.Rotation = 0;
 
 Movement movement = new Movement();
 RouteBuilder routeBuilder = new RouteBuilder();
-Timer timer = new Timer(30, TimerType.AddAirport);
+Timer timer = new Timer(5, TimerType.AddAirport);
 AirportUpgrader airportUpgrader = new AirportUpgrader();
 AirplaneHandler airplaneHandler = new AirplaneHandler();
 

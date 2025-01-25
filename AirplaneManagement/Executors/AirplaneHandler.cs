@@ -15,15 +15,35 @@ public class AirplaneHandler : Executor
         {
             for (int j = 0; j < gamedata.routes[i].planes.Count; j++)
             {
-                
                 Plane plane = gamedata.routes[i].planes[j];
+                Vector2 offset = new Vector2(128 * 0.1f, 128 * 0.1f);
 
-                Vector2 dir = Vector2.Normalize(gamedata.routes[i].points[plane.currentPoint+1] - plane.pos);
+                Vector2 refPoint = Vector2.Zero;
+                float multplier = -12.8f;
+                if (plane.currentPoint == gamedata.routes[i].points.Length - 1)
+                {
+                    refPoint = gamedata.routes[i].points[plane.currentPoint - 1];
+                    multplier = -multplier;
+                }
+                else
+                {
+                    refPoint = gamedata.routes[i].points[plane.currentPoint + 1];
+                }
+                Vector2 goalPos = Vector2.Normalize(refPoint - gamedata.routes[i].points[plane.currentPoint]);
+                goalPos = new Vector2(-goalPos.Y, goalPos.X) * multplier + gamedata.routes[i].points[plane.currentPoint];
+
+
+
+
+                Vector2 dir = Vector2.Normalize(goalPos - plane.pos);
                 plane.pos += dir * plane.speed * delta * 10;
+                float rotation = MathF.Atan2(dir.Y, dir.X) * 180f / MathF.PI + 90;
+                // plane.pos = calculatedPos;
 
-                if (Vector2.Distance(plane.pos, gamedata.routes[i].points[plane.currentPoint+1]) < 0.2f)
+                if (Vector2.Distance(plane.pos, goalPos) < 0.2f)
                 {
                     plane.currentPoint++;
+                    Console.WriteLine(plane.currentPoint + " " + gamedata.routes[i].points.Length + " " + goalPos);
                     if (plane.currentPoint >= gamedata.routes[i].points.Length - 1)
                     {
                         plane.currentPoint = 0;
@@ -31,24 +51,18 @@ public class AirplaneHandler : Executor
                     }
                 };
 
-                float dot = Vector2.Dot(plane.pos, gamedata.routes[i].points[plane.currentPoint+1]);
+                Raylib.DrawCircle((int)plane.pos.X, (int)plane.pos.Y, 5, Color.Yellow);
+                Raylib.DrawCircle((int)goalPos.X, (int)goalPos.Y, 5, Color.Blue);
+                Raylib.DrawTextureEx(plane.sprite, plane.pos, rotation, 0.1f, Color.White);
 
-                float mag = MathF.Sqrt(plane.pos.X * plane.pos.X + plane.pos.Y * plane.pos.Y);
-                float mag2 = MathF.Sqrt(gamedata.routes[i].points[plane.currentPoint+1].X * gamedata.routes[i].points[plane.currentPoint+1].X + gamedata.routes[i].points[plane.currentPoint+1].Y * gamedata.routes[i].points[plane.currentPoint+1].Y);
 
-                float progress = dot / (mag * mag2);
-                progress = MathF.Max(-1f, Math.Min(1f, progress));
-                float angle = MathF.Acos(progress);
-                angle = angle * 180f / MathF.PI;
-                Console.WriteLine(angle);
-
-                Raylib.DrawTextureEx(plane.sprite, plane.pos - new Vector2(128*0.1f, 128*0.1f), angle - 90, 0.1f, Color.White);
+                //Going back in right direction
             }
         }
     }
 
     public void LateUpdate(Gamedata gamedata)
     {
-        
+
     }
 }
