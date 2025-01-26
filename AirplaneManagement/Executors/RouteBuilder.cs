@@ -77,8 +77,12 @@ public class RouteBuilder : Executor
 
                     //route is uniqe create it
                     Route route = new Route(startAirport, gamedata.airports[i], GenerateRoutePreview(gamedata.airports[i].position, 25), routeId);
+                    
                     gamedata.routes.Add(route);
+                    startAirport.routes.Add(route);
+                    gamedata.airports[i].routes.Add(route);
                     drawing = false;
+
                     return;
                 }
             }
@@ -116,7 +120,6 @@ public class RouteBuilder : Executor
             Vector2 b = controllPoint + (endpos - controllPoint) * t;
             Vector2 p = a + (b - a) * t;
 
-            Console.WriteLine(p);
             points[i] = p;
         }
 

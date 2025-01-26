@@ -48,4 +48,9 @@ public class CargoPlane : Plane
 
         maxWeight = level * levelWeightMultplier;
     }
+
+    public void Arrive()
+    {
+        
+    }
 }

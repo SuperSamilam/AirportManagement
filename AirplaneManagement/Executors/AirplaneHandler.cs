@@ -29,23 +29,20 @@ public class AirplaneHandler : Executor
 
                 //Move the plane
                 Vector2 dir = Vector2.Normalize(offsetPoint - plane.pos);
-                plane.pos += dir * plane.speed * delta * 10;
+                plane.pos += dir * plane.speed * delta * 30;
                 plane.rot = MathF.Atan2(dir.Y, dir.X) * 180f / MathF.PI + 90;
 
                 //Changed goal point if near offset point, change direction if end of route
-                Vector2 nextPos = plane.pos + dir * plane.speed * delta * 10;//predicting next pos
+                Vector2 nextPos = plane.pos + dir * plane.speed * delta * 30;//predicting next pos
                 if (Vector2.Dot(nextPos - offsetPoint, plane.pos - offsetPoint) < 0)
                 {
                     plane.currentPoint += plane.dir;
-                    if (plane.currentPoint >= gamedata.routes[i].points.Length)
+                    if (plane.currentPoint >= gamedata.routes[i].points.Length || plane.currentPoint <= -1)
                     {
-                        plane.groundedTimeLeft = 3f;
-                        plane.dir = -plane.dir;
-                    }
-                    else if (plane.currentPoint <= -1)
-                    {
-                        plane.groundedTimeLeft = 3f;
-                        plane.dir = -plane.dir;
+                        if (plane is PassengerPlane passengerPlane)
+                            passengerPlane.Arrived();
+                        if (plane is CargoPlane cargoPlane)
+                            cargoPlane.Arrived(); //Not implimeted yet
                     }
                 }
 

@@ -23,7 +23,9 @@ camera.Rotation = 0;
 
 Movement movement = new Movement();
 RouteBuilder routeBuilder = new RouteBuilder();
-Timer timer = new Timer(1, TimerType.AddAirport);
+Timer addAirportTimer = new Timer(2000, TimerType.AddAirport);
+Timer addPassengerTimer = new Timer(10, TimerType.AddPassenger);
+
 AirportUpgrader airportUpgrader = new AirportUpgrader();
 AirplaneHandler airplaneHandler = new AirplaneHandler();
 AirplaneUpgrader airplaneUpgrader = new AirplaneUpgrader();
@@ -58,6 +60,13 @@ while (!Raylib.WindowShouldClose())
 
   Raylib.EndDrawing();
 
+  if (Raylib.IsKeyPressed(KeyboardKey.U))
+  {
+    for (int i = 0; i < data.airports.Count; i++)
+    {
+      Console.WriteLine(data.airports[i].name + " " + data.airports[i].routes);
+    }
+  }
 
 }
 
@@ -82,11 +91,17 @@ void DrawAirports()
 {
   for (int i = 0; i < data.airports.Count; i++)
   {
+    Color airportColor = Raylib.ColorLerp(Color.Green, Color.Red, data.airports[i].passengers.Count / (float)data.airports[i].maxPassengers);
     Raylib.DrawCircle((int)data.airports[i].position.X, (int)data.airports[i].position.Y, 12, Color.Black);
-    Raylib.DrawCircle((int)data.airports[i].position.X, (int)data.airports[i].position.Y, 9, Color.Red);
+    Raylib.DrawCircle((int)data.airports[i].position.X, (int)data.airports[i].position.Y, 9, airportColor);
+
+    if (data.airports.Count > 5)
+    {
+      Raylib.DrawCircleSector(data.airports[i].position, 9, -90, 90, 30, Raylib.ColorLerp(Color.DarkGreen, new Color(149, 6, 6), data.airports[i].cargo.Count / (float)data.airports[i].maxCargo));
+    }
 
     int width = Raylib.MeasureText(data.airports[i].name, 10);
-    Raylib.DrawText(data.airports[i].name, (int)data.airports[i].position.X - width / 2, (int)data.airports[i].position.Y - 25, 10, Color.Red);
+    Raylib.DrawText(data.airports[i].name, (int)data.airports[i].position.X - width / 2, (int)data.airports[i].position.Y - 25, 10, airportColor);
   }
 }
 

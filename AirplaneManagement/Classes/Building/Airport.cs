@@ -51,6 +51,8 @@ public class Airport : Building
     public static int levelMultiplier = 6;
     public int level;
 
+    public List<Route> routes;
+
     //Passengers
     public int maxPassengers = 6;
     public List<Person> passengers;
@@ -64,11 +66,12 @@ public class Airport : Building
         level = 1;
         cargo = new List<Cargo>();
         passengers = new List<Person>();
+        routes = new List<Route>();
     }
 
     public bool PressedAirport()
-    {   
-        return Raylib.CheckCollisionPointRec(GlobalData.Instance.CalculatedValue, new Rectangle(position.X-12, position.Y-12, 24, 24));
+    {
+        return Raylib.CheckCollisionPointRec(GlobalData.Instance.CalculatedValue, new Rectangle(position.X - 12, position.Y - 12, 24, 24));
     }
 
     public void Upgrade()
@@ -76,6 +79,22 @@ public class Airport : Building
         level++;
         maxPassengers = level * levelMultiplier;
         maxCargo = level * levelMultiplier;
+    }
+
+    public void HandlePassangers()
+    {
+        for (int i = passengers.Count - 1; i >= 0; i--)
+        {
+            if (passengers[i].destination == this)
+            {
+                passengers.RemoveAt(i);
+                continue;
+            }
+
+            passengers[i].RemoveRoutePoint(this);
+        
+
+        }
     }
 
     public static Airport? GetNewAirport(List<Airport> ownedAirport)
@@ -91,7 +110,7 @@ public class Airport : Building
             {
                 if (!ownedAirport.Contains(airport) && !closestAirports.Contains(airport))
                 {
-                    float distance = Vector2.Distance(ownedAirport[ownedAirport.Count-1].position, airport.position);
+                    float distance = Vector2.Distance(ownedAirport[ownedAirport.Count - 1].position, airport.position);
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;
@@ -114,4 +133,6 @@ public class Airport : Building
     {
         return airports[n];
     }
+
+
 }

@@ -28,8 +28,71 @@ public class PassengerPlane : Plane
         }
         else
         {
-            sprite = sprites[level-1];
+            sprite = sprites[level - 1];
+        }
+    }
+
+    public void Arrived()
+    {
+        base.Arrived();
+
+        //figure out witch airport
+        //if currentpos = 0 baseairport
+        //if currentpos = something else second airport
+
+
+        //LOOOK HERE
+        Airport landedAirport = route.airportBase;
+        Airport destinationAirport = route.airportSecond;
+        if (currentPoint != 0)
+        {
+            landedAirport = route.airportSecond;
+            destinationAirport = route.airportBase;
+        }   
+
+        Console.Clear();
+
+        //Load all passangers from airport to plane
+        List<Person> newPassangers = new List<Person>();
+        Console.WriteLine(landedAirport.passengers.Count + " before");
+        for (int i = landedAirport.passengers.Count - 1; i >= 0; i--)
+        {
+            //They dont have a route cause no path to their destination exists
+            if (landedAirport.passengers[i].route == null)
+            {
+                continue;
+            }
+
+            if (landedAirport.passengers[i].route[0].id == destinationAirport.id)
+            {
+                Console.WriteLine("FOUND PASSANGFER");
+                newPassangers.Add(landedAirport.passengers[i]);
+                landedAirport.passengers.RemoveAt(i);
+            }
+            if (newPassangers.Count == levelPassangerMultplier * level)
+            {
+                break;
+            }
+        }
+        Console.WriteLine(newPassangers.Count + " new");
+        Console.WriteLine(landedAirport.passengers.Count + " count");
+
+        //For each passanger that has landed add them to the airport
+        for (int i = 0; i < passangers.Count; i++)
+        {
+            landedAirport.passengers.Add(passangers[i]);
         }
 
+        //load the new passangers to the plane
+        passangers = newPassangers;
+
+        
+        landedAirport.HandlePassangers();
+
+
+
+        //Make a new list and fill it with persons that want to go to the given destinations
+        //Add all passangers from plane to airport
+        //call airport handle passangersFunction
     }
 }

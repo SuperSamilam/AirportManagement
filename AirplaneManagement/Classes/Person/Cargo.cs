@@ -2,7 +2,7 @@ public class Cargo : Person
 {
     public int weight;
 
-    public Cargo(int weight) : base()
+    public Cargo(Airport desitnation, int weight) : base(desitnation)
     {
         this.weight = weight;
     }

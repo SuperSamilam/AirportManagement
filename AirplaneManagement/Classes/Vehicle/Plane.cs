@@ -19,4 +19,10 @@ public class Plane : Vehicle
         dir = 1;
         groundedTimeLeft = 3;
     }
+
+    public void Arrived()
+    {
+        groundedTimeLeft = 3f;
+        dir = -dir;
+    }
 }

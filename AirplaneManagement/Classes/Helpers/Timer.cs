@@ -31,7 +31,23 @@ public class Timer : Executor
             }
             else if (timerType == TimerType.AddPassenger)
             {
-                //Add passenger
+                Random rand = new Random();
+                int failed = 0;
+                int sucsess = 0;
+                for (int i = 0; i < gamedata.airports.Count; i++)
+                {
+                    Airport destination = gamedata.airports[rand.Next(0, gamedata.airports.Count)];
+                    if (destination.id == gamedata.airports[i].id)
+                    {
+                        failed++;
+                        continue;
+                    }
+
+                    Person p = new Person(destination);
+                    p.CalculateRoute(gamedata.airports, gamedata.airports[i]);
+                    gamedata.airports[i].passengers.Add(p);
+                    sucsess++;
+                }
             }
         }
     }
