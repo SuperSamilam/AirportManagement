@@ -36,7 +36,7 @@ public class Person
             Airport a = queue.Dequeue();
             if (a == destination)
             {
-                ReconstructPath(visited);
+                ReconstructPath(visited, currentAirport);
                 break;
             }
 
@@ -63,7 +63,7 @@ public class Person
         // Console.WriteLine("No Paths exists");
     }
 
-    void ReconstructPath(Dictionary<Airport, Airport?> tree)
+    void ReconstructPath(Dictionary<Airport, Airport?> tree, Airport currentAirport)
     {
         route = new List<Airport>();
         route.Add(destination);
@@ -71,13 +71,14 @@ public class Person
         while (true)
         {
             Airport next = tree[route[0]];
-            if (next != null)
+
+            if (next == currentAirport)
             {
-                route.Insert(0, next);
+                break;
             }
             else
             {
-                break;
+                route.Insert(0, next);
             }
         }
     }

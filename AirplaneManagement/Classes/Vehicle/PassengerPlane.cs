@@ -44,7 +44,7 @@ public class PassengerPlane : Plane
         //LOOOK HERE
         Airport landedAirport = route.airportBase;
         Airport destinationAirport = route.airportSecond;
-        if (currentPoint != 0)
+        if (currentPoint > route.points.Length/2f)
         {
             landedAirport = route.airportSecond;
             destinationAirport = route.airportBase;

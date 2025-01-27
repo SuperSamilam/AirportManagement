@@ -24,7 +24,7 @@ camera.Rotation = 0;
 Movement movement = new Movement();
 RouteBuilder routeBuilder = new RouteBuilder();
 Timer addAirportTimer = new Timer(2000, TimerType.AddAirport);
-Timer addPassengerTimer = new Timer(10, TimerType.AddPassenger);
+Timer addPassengerTimer = new Timer(5, TimerType.AddPassenger);
 
 AirportUpgrader airportUpgrader = new AirportUpgrader();
 AirplaneHandler airplaneHandler = new AirplaneHandler();
@@ -64,7 +64,12 @@ while (!Raylib.WindowShouldClose())
   {
     for (int i = 0; i < data.airports.Count; i++)
     {
-      Console.WriteLine(data.airports[i].name + " " + data.airports[i].routes);
+      Console.WriteLine(data.airports[i].name + " ");
+      for (int j = 0; j < data.airports[i].passengers.Count; j++)
+      {
+        Console.Write(" " + data.airports[i].passengers[j].destination.name + " " + data.airports[i].passengers[j].route[0].name + " " + data.airports[i].passengers[j].route.Count);
+      }
+      Console.WriteLine("");
     }
   }
 
