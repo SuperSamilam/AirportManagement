@@ -20,8 +20,7 @@ public class Route : Gameobject
         planes = new List<Plane>();
         this.dist = dist;
 
-        PassengerPlane plane = new PassengerPlane(this);
-        planes.Add(plane);
+        AddNewPassangerPlane();
     }
 
     public void AddNewPassangerPlane()

@@ -1,5 +1,6 @@
 using Raylib_cs;
 
+//This class is self explanitory
 public class Drawer : Executor
 {
     Texture2D worldTexture = Raylib.LoadTexture(@"Scnadi.png");
@@ -7,14 +8,8 @@ public class Drawer : Executor
     float screenWidth = Raylib.GetScreenWidth();
     float screenHeight = Raylib.GetScreenHeight();
 
-    public Drawer()
-    {
-        Register.executorRegistry.Add(this);
-    }
-
     public void LateUpdate(Gamedata gamedata)
     {
-        throw new NotImplementedException();
     }
 
     public void Update(Gamedata gamedata)
@@ -22,6 +17,11 @@ public class Drawer : Executor
         DrawWorld(gamedata);
         DrawAirports(gamedata);
         DrawRoutes(gamedata);
+
+        if (!gamedata.alive)
+        {
+            Raylib.DrawText("YOU LOST", -200, -35, 80, Color.Black);
+        }
     }
 
     void DrawAirports(Gamedata data)

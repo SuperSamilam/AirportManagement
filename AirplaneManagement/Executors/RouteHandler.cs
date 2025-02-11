@@ -3,24 +3,17 @@ using Raylib_cs;
 public class RouteHandler : Executor
 {
 
-    Route selectedRoute;
-    bool routeSelected = false;
-    public RouteHandler()
-    {
-        Register.executorRegistry.Add(this);
-    }
+    Route route;
+    bool isRouteSelected = false;
+
 
     public void LateUpdate(Gamedata gamedata)
-    {
-        if (routeSelected)
+    {   
+        //Draw UI
+        if (isRouteSelected)
         {
-            //Draw Route UI
-            // AIRPORT - AIRPORT
-            // Buy New Passanger Plane(250)
-            //Buy new Cargo Plane(250)
-
             Raylib.DrawRectangle(10, 471, 250, 200, Color.SkyBlue);
-            Raylib.DrawText(selectedRoute.airportBase.name + " - " + selectedRoute.airportSecond.name, 20, 490, 20, Color.Black);
+            Raylib.DrawText(route.airportBase.name + " - " + route.airportSecond.name, 20, 490, 20, Color.Black);
 
             Raylib.DrawRectangle(20, 520, 230, 40, Color.Green);
             Raylib.DrawText("Buy new Cargo Plane(250)", 30, 532, 15, Color.Black);
@@ -28,8 +21,7 @@ public class RouteHandler : Executor
             Raylib.DrawRectangle(20, 570, 230, 40, Color.Green);
             Raylib.DrawText("Buy new Passanger Plane(250)", 30, 582, 15, Color.Black);
 
-
-
+            //New planes got a set price of 250, chould be a variable
             if (gamedata.money < 250)
             {
                 return;
@@ -39,7 +31,7 @@ public class RouteHandler : Executor
             if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(20, 520, 230, 40)) && Raylib.IsMouseButtonPressed(MouseButton.Left))
             {
                 gamedata.money -= 250;
-                selectedRoute.AddNewCargoPlane();
+                route.AddNewCargoPlane();
 
             }
 
@@ -47,46 +39,37 @@ public class RouteHandler : Executor
             if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(20, 570, 230, 40)) && Raylib.IsMouseButtonPressed(MouseButton.Left))
             {
                 gamedata.money -= 250;
-                selectedRoute.AddNewPassangerPlane();
+                route.AddNewPassangerPlane();
             }
-
-
-            // if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(564, 580, 150, 50)) && Raylib.IsMouseButtonPressed(MouseButton.Left))
-            // {
-            //     gamedata.money -= upgradeCost;
-            //     if (passengerPlane != null)
-            //     {
-            //         passengerPlane.Upgrade();
-            //     }
-            //     if (cargoPlane != null)
-            //     {
-            //         cargoPlane.Upgrade();
-            //     }
-            // }
 
         }
     }
 
     public void Update(Gamedata gamedata)
     {
-        if (routeSelected)
+        //Draw a blue line over showing it is selected
+        if (isRouteSelected)
         {
-            for (int j = 0; j < selectedRoute.points.Length - 1; j++)
+            for (int j = 0; j < route.points.Length - 1; j++)
             {
-                Raylib.DrawLineEx(selectedRoute.points[j], selectedRoute.points[j + 1], 4, Color.Blue);
+                Raylib.DrawLineEx(route.points[j], route.points[j + 1], 4, Color.Blue);
             }
         }
 
-
-
+        //Makes it possible to selected a route
         for (int i = 0; i < gamedata.routes.Count; i++)
         {
             Route route = gamedata.routes[i];
 
-            if (Raylib.IsMouseButtonPressed(MouseButton.Left) && CollisionDetection.GetCollsionOnRoute(GlobalData.Instance.CalculatedValue, gamedata.routes[i]))
+            if (Raylib.IsMouseButtonPressed(MouseButton.Left) && CollisionDetection.GetCollsionOnRoute(WorldMouse.Instance.Position, gamedata.routes[i]))
             {
-                selectedRoute = route;
-                routeSelected = true;
+                this.route = route;
+                isRouteSelected = true;
+                break;
+            }
+            else if (Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(10, 471, 250, 200)))
+            {
+                isRouteSelected = false;
             }
         }
     }

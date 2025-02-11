@@ -1,6 +1,7 @@
 
 public class Register
 {
+    //Makes sure ever executor updteas
     public List<Executor> executorRegistry = new List<Executor>();
 
     public void UpdateExecutors(Gamedata gamedata)

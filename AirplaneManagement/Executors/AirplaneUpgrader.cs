@@ -3,26 +3,26 @@ using Raylib_cs;
 
 public class AirplaneUpgrader : Executor
 {
-    Plane selectedPlane;
-    bool planeSelected = false;
-    public AirplaneUpgrader()
-    {
-        Register.executorRegistry.Add(this);
-    }
+    Plane plane;
+    bool isPlaneSelected = false;
 
     public void Update(Gamedata gamedata)
     {
+        //Try to select a plane
         for (int i = 0; i < gamedata.routes.Count; i++)
         {
             for (int j = 0; j < gamedata.routes[i].planes.Count; j++)
             {
                 Plane plane = gamedata.routes[i].planes[j];
 
-                //Check if airplane is clicked
-                if (Raylib.IsMouseButtonPressed(MouseButton.Left) && CollisionDetection.CheckCollisionOnRotatedRect(GlobalData.Instance.CalculatedValue, plane.pos, 25, 25, plane.rot))
+                if (Raylib.IsMouseButtonPressed(MouseButton.Left) && CollisionDetection.CheckCollisionOnRotatedRect(WorldMouse.Instance.Position, plane.pos, 25, 25, plane.rot))
                 {
-                    selectedPlane = plane;
-                    planeSelected = true;
+                    this.plane = plane;
+                    isPlaneSelected = true;
+                }
+                else if (Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(514, 471, 250,200))) //If plane is selected but press anywhere else deslect
+                {
+                    isPlaneSelected = false;
                 }
             }
         }
@@ -31,13 +31,14 @@ public class AirplaneUpgrader : Executor
     }
     public void LateUpdate(Gamedata gamedata)
     {
-        if (planeSelected)
+        //Draws UI
+        if (isPlaneSelected)
         {
             Raylib.DrawRectangle(514, 471, 250, 200, Color.SkyBlue);
-            Raylib.DrawText("Speed: " + selectedPlane.speed, 585, 500, 30, Color.Black);
+            Raylib.DrawText("Speed: " + plane.speed, 585, 500, 30, Color.Black);
 
-            PassengerPlane? passengerPlane = selectedPlane as PassengerPlane;
-            CargoPlane? cargoPlane = selectedPlane as CargoPlane;
+            PassengerPlane? passengerPlane = plane as PassengerPlane;
+            CargoPlane? cargoPlane = plane as CargoPlane;
 
             int upgradeCost = 0;
             if (passengerPlane != null)
@@ -54,11 +55,12 @@ public class AirplaneUpgrader : Executor
             Raylib.DrawRectangle(564, 580, 150, 50, Color.Green);
             Raylib.DrawText("Upgrade " + upgradeCost, 574, 585, 20, Color.Black);
 
+
             if (gamedata.money <= upgradeCost)
             {
                 return;
             }
-            if (selectedPlane.level >= 10)
+            if (plane.level >= 10)
             {
                 return;
             }

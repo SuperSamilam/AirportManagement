@@ -7,15 +7,9 @@ public class RouteBuilder : Executor
     bool drawing = false;
     Airport startAirport;
 
-    public RouteBuilder()
-    {
-        Register.executorRegistry.Add(this);
-    }
-
-
     public void Update(Gamedata gamedata)
     {
-        //Check first click and record data
+        //Check input and if selection
         if (Raylib.IsMouseButtonPressed(MouseButton.Right))
         {
             for (int i = 0; i < gamedata.airports.Count; i++)
@@ -29,19 +23,17 @@ public class RouteBuilder : Executor
             }
         }
 
-        //If still holding down draw temporary position
+        //Draw preview if its possible
         if (Raylib.IsMouseButtonDown(MouseButton.Right) && drawing)
         {
-            Vector2[] points = GenerateRoutePreview(GlobalData.Instance.CalculatedValue, 25);
-
-            //Calculate price
-            float dist = Vector2.Distance(startAirport.position, GlobalData.Instance.CalculatedValue);
+            Vector2[] points = GenerateRoutePreview(WorldMouse.Instance.Position, 25);
+            float dist = Vector2.Distance(startAirport.position, WorldMouse.Instance.Position); //Price
 
             Color drawColor = Color.Green;
             if (gamedata.money < dist)
                 drawColor = Color.Red;
 
-            Raylib.DrawText(dist.ToString("0"), (int)GlobalData.Instance.CalculatedValue.X - 10, (int)GlobalData.Instance.CalculatedValue.Y + 15, 30, drawColor);
+            Raylib.DrawText(dist.ToString("0"), (int)WorldMouse.Instance.Position.X - 10, (int)WorldMouse.Instance.Position.Y + 15, 30, drawColor);
 
             for (int i = 0; i < points.Length - 1; i++)
             {
@@ -49,16 +41,15 @@ public class RouteBuilder : Executor
             }
         }
 
-        //Done drawing
+        //Try to make new route
         if (Raylib.IsMouseButtonReleased(MouseButton.Right) && drawing)
         {
             for (int i = 0; i < gamedata.airports.Count; i++)
-            {
-                //make sure i make an uniqe route
+            {   
                 if (gamedata.airports[i].PressedAirport() && gamedata.airports[i].id != startAirport.id)
                 {
+                    //Making sure this route dosent exists
                     string routeId = startAirport.id + "-" + gamedata.airports[i].id;
-
                     for (int j = 0; j < gamedata.routes.Count; j++)
                     {
                         if (gamedata.routes[j].id == routeId)
@@ -68,6 +59,7 @@ public class RouteBuilder : Executor
                         }
                     }
 
+                    
                     int price = (int)Vector2.Distance(startAirport.position, gamedata.airports[i].position);
                     if (gamedata.money < price)
                     {
@@ -75,10 +67,9 @@ public class RouteBuilder : Executor
                         return;
                     }
 
-                    //route is uniqe create it
-                    int dist = (int)Vector2.Distance(startAirport.position, gamedata.airports[i].position);
-                    gamedata.money -= dist;
-                    Route route = new Route(startAirport, gamedata.airports[i], GenerateRoutePreview(gamedata.airports[i].position, 25), dist, routeId);
+                    //Make the new route
+                    gamedata.money -= price;
+                    Route route = new Route(startAirport, gamedata.airports[i], GenerateRoutePreview(gamedata.airports[i].position, 25), price, routeId);
                     
                     gamedata.routes.Add(route);
                     startAirport.routes.Add(route);
@@ -94,15 +85,16 @@ public class RouteBuilder : Executor
         }
     }
 
+    //Generates points for Route
     public Vector2[] GenerateRoutePreview(Vector2 endpos, int steps = 25)
     {
-        //Generates controllpoint
+        //Generates a controll point
         Vector2 middlePos = (startAirport.position + endpos) / 2;
 
         Vector2 dir = Vector2.Normalize(endpos - startAirport.position);
-        Vector2 birnormal = new Vector2(-dir.Y, dir.X); //Binormal is the vector perpendicular to the normal
+        Vector2 birnormal = new Vector2(-dir.Y, dir.X); 
 
-        //makes sure route curvature is never upside down
+        //Makes sure so curvature is always point upwards
         if (startAirport.position.X < endpos.X)
         {
             birnormal = -birnormal;
@@ -110,7 +102,7 @@ public class RouteBuilder : Executor
 
         Vector2 controllPoint = middlePos + birnormal * Vector2.Distance(startAirport.position, endpos) / 3;
 
-        //The extra on is to make sure a start and end position can be added       
+    
         Vector2[] points = new Vector2[(int)steps + 1];
         points[0] = startAirport.position;
         points[points.Length - 1] = endpos;
@@ -131,7 +123,7 @@ public class RouteBuilder : Executor
     }
 
 
-
+    //dont need
     public void LateUpdate(Gamedata gamedata)
     {
 

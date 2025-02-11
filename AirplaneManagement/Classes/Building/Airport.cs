@@ -71,7 +71,7 @@ public class Airport : Building
 
     public bool PressedAirport()
     {
-        return Raylib.CheckCollisionPointRec(GlobalData.Instance.CalculatedValue, new Rectangle(position.X - 12, position.Y - 12, 24, 24));
+        return Raylib.CheckCollisionPointRec(WorldMouse.Instance.Position, new Rectangle(position.X - 12, position.Y - 12, 24, 24));
     }
 
     public void Upgrade()
@@ -81,6 +81,7 @@ public class Airport : Building
         maxCargo = level * levelMultiplier;
     }
 
+    //Make sure passangers routes are correct
     public void HandleArrivingPassangers()
     {
         for (int i = passengers.Count - 1; i >= 0; i--)
@@ -92,11 +93,10 @@ public class Airport : Building
             }
 
             passengers[i].RemoveRoutePoint(this);
-
-
         }
     }
 
+    //Get new routes for all passangers
     public void UpdatePassangerRoutes(List<Airport> airports)
     {
         for (int i = 0; i < passengers.Count; i++)
@@ -108,6 +108,7 @@ public class Airport : Building
         }
     }
 
+    //Upgdates all airports passangers routes
     public static void UpdateAllPassangerRoutes(List<Airport> airports)
     {
         for (int i = 0; i < airports.Count; i++)
@@ -116,11 +117,13 @@ public class Airport : Building
         }
     }
 
+    //Try make a new airport if possible
     public static Airport? GetNewAirport(List<Airport> ownedAirport)
     {
         //Find the 3 closest airports that are not owned by the player
         List<Airport> closestAirports = new List<Airport>();
 
+        //Find 3 closest airports
         for (int i = 0; i < 3; i++)
         {
             Airport closestAirport = null;
@@ -145,6 +148,7 @@ public class Airport : Building
             return null;
         }
 
+        //choose one of the 3 closests airports
         return closestAirports[new Random().Next(0, closestAirports.Count)];
     }
 
@@ -153,5 +157,14 @@ public class Airport : Building
         return airports[n];
     }
 
+    public int GetCargoWeight()
+    {
+        int cargoWeight = 0;
+        for (int i = 0; i < cargo.Count; i++)
+        {
+            cargoWeight += cargo[i].weight;
+        }
 
+        return cargoWeight;
+    }
 }

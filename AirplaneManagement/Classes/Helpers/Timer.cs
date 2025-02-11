@@ -11,7 +11,6 @@ public class Timer : Executor
     {
         this.TimeUntilNextEvent = TimeUntilNextEvent;
         this.timerType = timerType;
-        Register.executorRegistry.Add(this);
     }
 
     public void Update(Gamedata gamedata)
@@ -22,6 +21,7 @@ public class Timer : Executor
             time = 0;
             if (timerType == TimerType.AddAirport)
             {
+                //Create a new airport
                 Airport airport = Airport.GetNewAirport(gamedata.airports);
                 if (airport != null)
                 {
@@ -31,13 +31,13 @@ public class Timer : Executor
             }
             else if (timerType == TimerType.AddPassenger)
             {
+                //Create a new passanger for every airport
                 Random rand = new Random();
                 int failed = 0;
-                int sucsess = 0;
                 for (int i = 0; i < gamedata.airports.Count; i++)
                 {
                     Airport destination = gamedata.airports[rand.Next(0, gamedata.airports.Count)];
-                    if (destination.id == gamedata.airports[i].id)
+                    if (destination.id == gamedata.airports[i].id) 
                     {
                         failed++;
                         continue;
@@ -46,7 +46,6 @@ public class Timer : Executor
                     Person p = new Person(destination);
                     p.CalculateRoute(gamedata.airports, gamedata.airports[i]);
                     gamedata.airports[i].passengers.Add(p);
-                    sucsess++;
                 }
             }
         }

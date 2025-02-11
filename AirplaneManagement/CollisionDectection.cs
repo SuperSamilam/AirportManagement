@@ -8,11 +8,12 @@ public static class CollisionDetection
     {
         Vector2[] corners = GetRotatedRectangleCorners(pos, width, height, rotation);
 
+        //If point is collidiong wuith either triangel
         return Raylib.CheckCollisionPointTriangle(point, corners[0], corners[1], corners[2]) ||
            Raylib.CheckCollisionPointTriangle(point, corners[2], corners[3], corners[0]);
     }
 
-    //calculates the positon of the corners of the rectangle
+    //Calculates corners based on 1 pos
     static Vector2[] GetRotatedRectangleCorners(Vector2 pos, float width, float height, float rotation)
     {
         Vector2[] corners = new Vector2[4];
@@ -30,6 +31,7 @@ public static class CollisionDetection
         return corners;
     }
 
+    //Checks multple triangels around a route path
     public static bool GetCollsionOnRoute(Vector2 point, Route route)
     {
         for (int i = 0; i < route.points.Length - 1; i++)

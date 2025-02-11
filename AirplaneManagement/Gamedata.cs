@@ -4,6 +4,7 @@ public class Gamedata
     public List<Route> routes;
     public int money;
     public bool unlockedCargo; 
+    public bool alive;
 
     public Gamedata()
     {
@@ -11,5 +12,6 @@ public class Gamedata
         routes = new List<Route>();
         money = 20000;
         unlockedCargo = false;
+        alive = true;
     }   
 }

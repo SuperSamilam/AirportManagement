@@ -18,6 +18,7 @@ public class PassengerPlane : Plane
         sprite = sprites[0];
     }
 
+    //Makes all upgrades happend
     public void Upgrade()
     {
         base.Upgrade();
@@ -32,12 +33,14 @@ public class PassengerPlane : Plane
         }
     }
 
+
     public int Arrived()
     {
         base.Arrived();
 
         int income = (int)(route.dist/10f * passangers.Count);
 
+        //Figure out current airport
         Airport landedAirport = route.airportBase;
         Airport destinationAirport = route.airportSecond;
         if (currentPoint > route.points.Length/2f)
@@ -46,33 +49,31 @@ public class PassengerPlane : Plane
             destinationAirport = route.airportBase;
         }   
 
-        Console.Clear();
-
-        //Load all passangers from airport to plane
+        //Load all passangers on plane
         List<Person> newPassangers = new List<Person>();
-        Console.WriteLine(landedAirport.passengers.Count + " before");
         for (int i = landedAirport.passengers.Count - 1; i >= 0; i--)
         {
-            //They dont have a route cause no path to their destination exists
+            //Passangers cant get to their destination
             if (landedAirport.passengers[i].route == null)
             {
                 continue;
             }
 
+            //Passangers next stop is the next airport
             if (landedAirport.passengers[i].route[0].id == destinationAirport.id)
             {
                 newPassangers.Add(landedAirport.passengers[i]);
                 landedAirport.passengers.RemoveAt(i);
             }
+            
+            //dont overload the plane
             if (newPassangers.Count == levelPassangerMultplier * level)
             {
                 break;
             }
         }
-        Console.WriteLine(newPassangers.Count + " new");
-        Console.WriteLine(landedAirport.passengers.Count + " count");
 
-        //For each passanger that has landed add them to the airport
+        //add old passangers to airport
         for (int i = 0; i < passangers.Count; i++)
         {
             landedAirport.passengers.Add(passangers[i]);
@@ -84,10 +85,10 @@ public class PassengerPlane : Plane
         
         landedAirport.HandleArrivingPassangers();
 
-        return income;
+        //Reason the passangers are first loaded and then added to the airport
+        //I find it punching that an airport will be overcrowded for 1ms and therefore lose when dropping of passangers first.
+        //Doing it in my order should keep the airports fullness +-0
 
-        //Make a new list and fill it with persons that want to go to the given destinations
-        //Add all passangers from plane to airport
-        //call airport handle passangersFunction
+        return income;
     }
 }

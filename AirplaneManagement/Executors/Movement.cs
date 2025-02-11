@@ -10,11 +10,6 @@ public class Movement : Executor
     float maxZoom = 5f;
     float minZoom = 1f;
 
-    public Movement()
-    {
-        Register.executorRegistry.Add(this);
-    }
-
 
     public void Update(Gamedata gamedata)
     {
@@ -39,6 +34,7 @@ public class Movement : Executor
 
         zoom = Math.Clamp(Raylib.GetMouseWheelMove() * 0.1f + zoom, minZoom, maxZoom);
         
+        //Makes sure that the position is a valid position given the zoom, camera should not be able to see outside the edge
         float minX = Raylib.GetScreenWidth() / 2 / zoom - 388;
         float minY = Raylib.GetScreenHeight() / 2 / zoom - 344;
         float maxX = 774 - Raylib.GetScreenWidth() / 2 / zoom - 388;
@@ -52,6 +48,7 @@ public class Movement : Executor
 
     }
 
+    //Dosent need a late update
     public void LateUpdate(Gamedata gamedata)
     {
         

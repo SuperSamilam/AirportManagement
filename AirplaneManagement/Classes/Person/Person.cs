@@ -10,6 +10,7 @@ public class Person
 
     }
 
+    //Has arrived att point dont need it anymore
     public void RemoveRoutePoint(Airport airport)
     {
         //path to destination dont exist
@@ -23,6 +24,7 @@ public class Person
         }
     }
 
+    //BFS alogirhtm
     public void CalculateRoute(List<Airport> airports, Airport currentAirport)
     {
         Queue<Airport> queue = new Queue<Airport>();
@@ -34,6 +36,7 @@ public class Person
         while (queue.Count != 0)
         {
             Airport a = queue.Dequeue();
+            //If correct position reconstruct path
             if (a == destination)
             {
                 ReconstructPath(visited, currentAirport);
@@ -45,6 +48,7 @@ public class Person
                 continue;
             }
 
+            //For all airports connected to current airport add them the the queue
             for (int i = 0; i < a.routes.Count; i++)
             {
                 Airport toCheck = a.routes[i].airportBase;
@@ -68,6 +72,7 @@ public class Person
         route = new List<Airport>();
         route.Add(destination);
 
+        //Go back in the dictionary find the right path
         while (true)
         {
             Airport next = tree[route[0]];
