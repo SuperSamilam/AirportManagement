@@ -1,15 +1,11 @@
-//todo
-fix broken code that wont run
-make sure cargo airports things only show when needed
+only show cargo planes when cargo planes should be showing v/
+ 
+Spawn in cargo v/
 
+Collect cargo 
 
+Decollect cargo
 
-//if 8 airports exists allow cargo planes to spawn
+Done!!
 
-//Same for cargo planes
-//Let them buy cargo planes then
-//Let cargoplanes pick up cargo ect
-
-//Optimazations 
-//Do everything need to inherit from gameobject
-//comments
+//Plane gets stuck

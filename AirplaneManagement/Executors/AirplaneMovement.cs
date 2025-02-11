@@ -32,8 +32,9 @@ public class AirplaneMovement : Executor
                 plane.rot = MathF.Atan2(dir.Y, dir.X) * 180f / MathF.PI + 90;
 
                 //Handle when plane comes close enought to its goal
+                //WARNING - A bug exists here, sometimes the step size is to big causing the plane to be stuck at goalpos
                 Vector2 nextPos = plane.pos + dir * plane.speed * delta * 30; //Predicting the next position
-                if (Vector2.Dot(nextPos - offsetPoint, plane.pos - offsetPoint) < 0)
+                if (Vector2.Dot(nextPos - offsetPoint, plane.pos - offsetPoint) < 0) 
                 {
                     plane.currentPoint += plane.dir;
                     //Plane arrived at airport

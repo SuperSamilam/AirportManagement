@@ -21,13 +21,13 @@ camera.Rotation = 0;
 Drawer drawer = new Drawer();
 Movement movement = new Movement();
 RouteBuilder routeBuilder = new RouteBuilder();
-Timer addAirportTimer = new Timer(10, TimerType.AddAirport);
+Timer addAirportTimer = new Timer(40, TimerType.AddAirport);
 Timer addPassengerTimer = new Timer(1, TimerType.AddPassenger);
 
 AirportUpgrader airportUpgrader = new AirportUpgrader();
 AirplaneMovement airplaneMovement = new AirplaneMovement();
-AirplaneUpgrader airplaneUpgrader = new AirplaneUpgrader();
 RouteHandler routeHandler = new RouteHandler();
+AirplaneUpgrader airplaneUpgrader = new AirplaneUpgrader();
 
 WinController winController = new WinController();
 
@@ -82,7 +82,7 @@ while (!Raylib.WindowShouldClose())
 
   Raylib.EndDrawing();
 
-  if (data.airports.Count >= 8)
+  if (data.airports.Count >= 0)
   {
     data.unlockedCargo = true;
   }

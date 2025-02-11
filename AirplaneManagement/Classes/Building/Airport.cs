@@ -96,6 +96,20 @@ public class Airport : Building
         }
     }
 
+    public void HandleArrivingCargo()
+    {
+        for (int i = cargo.Count - 1; i >= 0; i--)
+        {
+            if (cargo[i].destination == this)
+            {
+                cargo.RemoveAt(i);
+                continue;
+            }
+
+            cargo[i].RemoveRoutePoint(this);
+        }
+    }
+
     //Get new routes for all passangers
     public void UpdatePassangerRoutes(List<Airport> airports)
     {

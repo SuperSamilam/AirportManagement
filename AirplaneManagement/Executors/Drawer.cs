@@ -32,7 +32,7 @@ public class Drawer : Executor
             Raylib.DrawCircle((int)data.airports[i].position.X, (int)data.airports[i].position.Y, 12, Color.Black);
             Raylib.DrawCircle((int)data.airports[i].position.X, (int)data.airports[i].position.Y, 9, airportColor);
 
-            if (data.airports.Count > 5)
+            if (data.unlockedCargo)
             {
                 Raylib.DrawCircleSector(data.airports[i].position, 9, -90, 90, 30, Raylib.ColorLerp(Color.DarkGreen, new Color(149, 6, 6), data.airports[i].cargo.Count / (float)data.airports[i].maxCargo));
             }

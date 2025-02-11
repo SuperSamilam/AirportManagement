@@ -20,10 +20,11 @@ public class AirplaneUpgrader : Executor
                     this.plane = plane;
                     isPlaneSelected = true;
                 }
-                else if (Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(514, 471, 250,200))) //If plane is selected but press anywhere else deslect
-                {
-                    isPlaneSelected = false;
-                }
+                // else if (Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(514, 471, 250,200))) //If plane is selected but press anywhere else deslect
+                // {
+                //     isPlaneSelected = false;
+                // }
+                //this code is removed cause it made it hard to select a plane
             }
         }
 
@@ -35,6 +36,7 @@ public class AirplaneUpgrader : Executor
         if (isPlaneSelected)
         {
             Raylib.DrawRectangle(514, 471, 250, 200, Color.SkyBlue);
+
             Raylib.DrawText("Speed: " + plane.speed, 585, 500, 30, Color.Black);
 
             PassengerPlane? passengerPlane = plane as PassengerPlane;
@@ -49,7 +51,7 @@ public class AirplaneUpgrader : Executor
             else if (cargoPlane != null)
             {
                 upgradeCost = cargoPlane.maxWeight * cargoPlane.maxWeight / 2;
-                Raylib.DrawText(cargoPlane.GetCargoWeight() + "/" + cargoPlane.maxWeight, 570, 545, 30, Color.Black);
+                Raylib.DrawText(cargoPlane.GetCargoWeight() + "/" + cargoPlane.maxWeight + " cargo", 570, 545, 30, Color.Black);
             }
 
             Raylib.DrawRectangle(564, 580, 150, 50, Color.Green);

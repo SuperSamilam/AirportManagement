@@ -8,15 +8,18 @@ public class RouteHandler : Executor
 
 
     public void LateUpdate(Gamedata gamedata)
-    {   
+    {
         //Draw UI
         if (isRouteSelected)
         {
             Raylib.DrawRectangle(10, 471, 250, 200, Color.SkyBlue);
             Raylib.DrawText(route.airportBase.name + " - " + route.airportSecond.name, 20, 490, 20, Color.Black);
 
-            Raylib.DrawRectangle(20, 520, 230, 40, Color.Green);
-            Raylib.DrawText("Buy new Cargo Plane(250)", 30, 532, 15, Color.Black);
+            if (gamedata.unlockedCargo)
+            {
+                Raylib.DrawRectangle(20, 520, 230, 40, Color.Green);
+                Raylib.DrawText("Buy new Cargo Plane(250)", 30, 532, 15, Color.Black);
+            }
 
             Raylib.DrawRectangle(20, 570, 230, 40, Color.Green);
             Raylib.DrawText("Buy new Passanger Plane(250)", 30, 582, 15, Color.Black);
@@ -28,11 +31,14 @@ public class RouteHandler : Executor
             }
 
             //Cargo plane
-            if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(20, 520, 230, 40)) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+            if (gamedata.unlockedCargo)
             {
-                gamedata.money -= 250;
-                route.AddNewCargoPlane();
+                if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(20, 520, 230, 40)) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                {
+                    gamedata.money -= 250;
+                    route.AddNewCargoPlane();
 
+                }
             }
 
             //Passanger plane

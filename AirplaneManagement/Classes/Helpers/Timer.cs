@@ -33,19 +33,26 @@ public class Timer : Executor
             {
                 //Create a new passanger for every airport
                 Random rand = new Random();
-                int failed = 0;
                 for (int i = 0; i < gamedata.airports.Count; i++)
                 {
                     Airport destination = gamedata.airports[rand.Next(0, gamedata.airports.Count)];
-                    if (destination.id == gamedata.airports[i].id) 
+                    if (destination.id != gamedata.airports[i].id)
                     {
-                        failed++;
-                        continue;
+                        Person p = new Person(destination);
+                        p.CalculateRoute(gamedata.airports, gamedata.airports[i]);
+                        gamedata.airports[i].passengers.Add(p);
                     }
 
-                    Person p = new Person(destination);
-                    p.CalculateRoute(gamedata.airports, gamedata.airports[i]);
-                    gamedata.airports[i].passengers.Add(p);
+                    if (gamedata.unlockedCargo)
+                    {
+                        destination = gamedata.airports[rand.Next(0, gamedata.airports.Count)];
+                        if (destination.id != gamedata.airports[i].id)
+                        {
+                            Cargo cargo = new Cargo(destination, rand.Next(1, 4));
+                            cargo.CalculateRoute(gamedata.airports, gamedata.airports[i]);
+                            gamedata.airports[i].cargo.Add(cargo); 
+                        }
+                    }
                 }
             }
         }

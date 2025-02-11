@@ -49,8 +49,58 @@ public class CargoPlane : Plane
         maxWeight = level * levelWeightMultplier;
     }
 
-    public void Arrive()
+    public int Arrived()
     {
-        
+        base.Arrived();
+        Console.WriteLine("ARRIVED");
+        int income = (int)(route.dist/10f * cargo.Count) * 2;
+
+        //figure out what airport plane is at
+        Airport landedAirport = route.airportBase;
+        Airport destinationAirport = route.airportSecond;
+        if (currentPoint > route.points.Length / 2f)
+        {
+            landedAirport = route.airportSecond;
+            destinationAirport = route.airportBase;
+        }
+
+        //Load all new cargo
+        List<Cargo> newCargo = new List<Cargo>();
+        int weight = 0;
+        for (int i = landedAirport.cargo.Count - 1; i >= 0; i--)
+        {
+            //Cargo cant get to their destination
+            if (landedAirport.cargo[i].route == null)
+            {
+                continue;
+            }
+
+            //Cargo next stop is the next airport
+            if (landedAirport.cargo[i].route[0].id == destinationAirport.id)
+            {
+                if (weight + landedAirport.cargo[i].weight > maxWeight)
+                {
+                    break;
+                }
+                else
+                {
+                    weight += landedAirport.cargo[i].weight;
+                    newCargo.Add(landedAirport.cargo[i]);
+                    landedAirport.cargo.RemoveAt(i);
+                }
+            }
+        }
+
+        //Load airport
+        for (int i = 0; i < cargo.Count; i++)
+        {
+            landedAirport.passengers.Add(cargo[i]);
+        }
+
+        landedAirport.HandleArrivingCargo();
+
+        cargo = newCargo;
+
+        return income;
     }
 }
