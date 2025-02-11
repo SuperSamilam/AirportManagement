@@ -39,21 +39,33 @@ public class AirplaneUpgrader : Executor
             PassengerPlane? passengerPlane = selectedPlane as PassengerPlane;
             CargoPlane? cargoPlane = selectedPlane as CargoPlane;
 
+            int upgradeCost = 0;
             if (passengerPlane != null)
             {
+                upgradeCost = passengerPlane.level * PassengerPlane.levelPassangerMultplier * passengerPlane.level * PassengerPlane.levelPassangerMultplier / 2;
                 Raylib.DrawText(passengerPlane.passangers.Count + "/" + PassengerPlane.levelPassangerMultplier * passengerPlane.level + " Passengers", 550, 545, 20, Color.Black);
             }
             else if (cargoPlane != null)
             {
-                Raylib.DrawText(cargoPlane.GetCargoWeight() + "/" + cargoPlane.maxWeight, 514, 571, 30, Color.Black);
+                upgradeCost = cargoPlane.maxWeight * cargoPlane.maxWeight / 2;
+                Raylib.DrawText(cargoPlane.GetCargoWeight() + "/" + cargoPlane.maxWeight, 570, 545, 30, Color.Black);
             }
 
             Raylib.DrawRectangle(564, 580, 150, 50, Color.Green);
-            Raylib.DrawText("Upgrade", 574, 585, 30, Color.Black);
+            Raylib.DrawText("Upgrade " + upgradeCost, 574, 585, 20, Color.Black);
 
+            if (gamedata.money <= upgradeCost)
+            {
+                return;
+            }
+            if (selectedPlane.level >= 10)
+            {
+                return;
+            }
 
             if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(564, 580, 150, 50)) && Raylib.IsMouseButtonPressed(MouseButton.Left))
             {
+                gamedata.money -= upgradeCost;
                 if (passengerPlane != null)
                 {
                     passengerPlane.Upgrade();

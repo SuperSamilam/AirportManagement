@@ -76,12 +76,16 @@ public class RouteBuilder : Executor
                     }
 
                     //route is uniqe create it
-                    Route route = new Route(startAirport, gamedata.airports[i], GenerateRoutePreview(gamedata.airports[i].position, 25), routeId);
+                    int dist = (int)Vector2.Distance(startAirport.position, gamedata.airports[i].position);
+                    gamedata.money -= dist;
+                    Route route = new Route(startAirport, gamedata.airports[i], GenerateRoutePreview(gamedata.airports[i].position, 25), dist, routeId);
                     
                     gamedata.routes.Add(route);
                     startAirport.routes.Add(route);
                     gamedata.airports[i].routes.Add(route);
                     drawing = false;
+
+                    Airport.UpdateAllPassangerRoutes(gamedata.airports);
 
                     return;
                 }

@@ -81,7 +81,7 @@ public class Airport : Building
         maxCargo = level * levelMultiplier;
     }
 
-    public void HandlePassangers()
+    public void HandleArrivingPassangers()
     {
         for (int i = passengers.Count - 1; i >= 0; i--)
         {
@@ -92,8 +92,27 @@ public class Airport : Building
             }
 
             passengers[i].RemoveRoutePoint(this);
-        
 
+
+        }
+    }
+
+    public void UpdatePassangerRoutes(List<Airport> airports)
+    {
+        for (int i = 0; i < passengers.Count; i++)
+        {
+            if (passengers[i].route == null)
+            {
+                passengers[i].CalculateRoute(airports, this);
+            }
+        }
+    }
+
+    public static void UpdateAllPassangerRoutes(List<Airport> airports)
+    {
+        for (int i = 0; i < airports.Count; i++)
+        {
+            airports[i].UpdatePassangerRoutes(airports);
         }
     }
 

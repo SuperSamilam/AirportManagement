@@ -16,9 +16,9 @@ public class CargoPlane : Plane
     public int maxWeight;
     public List<Cargo> cargo;
 
-    public CargoPlane(float speed, Texture2D sprite, Vector2 pos, Route route, int maxWeight) : base(route)
+    public CargoPlane(Route route) : base(route)
     {
-        this.maxWeight = maxWeight;
+        maxWeight = levelWeightMultplier * level;
         cargo = new List<Cargo>();
         sprite = sprites[0];
     }

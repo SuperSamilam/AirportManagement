@@ -32,16 +32,12 @@ public class PassengerPlane : Plane
         }
     }
 
-    public void Arrived()
+    public int Arrived()
     {
         base.Arrived();
 
-        //figure out witch airport
-        //if currentpos = 0 baseairport
-        //if currentpos = something else second airport
+        int income = (int)(route.dist/10f * passangers.Count);
 
-
-        //LOOOK HERE
         Airport landedAirport = route.airportBase;
         Airport destinationAirport = route.airportSecond;
         if (currentPoint > route.points.Length/2f)
@@ -65,7 +61,6 @@ public class PassengerPlane : Plane
 
             if (landedAirport.passengers[i].route[0].id == destinationAirport.id)
             {
-                Console.WriteLine("FOUND PASSANGFER");
                 newPassangers.Add(landedAirport.passengers[i]);
                 landedAirport.passengers.RemoveAt(i);
             }
@@ -87,9 +82,9 @@ public class PassengerPlane : Plane
         passangers = newPassangers;
 
         
-        landedAirport.HandlePassangers();
+        landedAirport.HandleArrivingPassangers();
 
-
+        return income;
 
         //Make a new list and fill it with persons that want to go to the given destinations
         //Add all passangers from plane to airport

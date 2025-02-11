@@ -1,9 +1,9 @@
 
-public static class Register
+public class Register
 {
-    public static List<Executor> executorRegistry = new List<Executor>();
+    public List<Executor> executorRegistry = new List<Executor>();
 
-    public static void UpdateExecutors(Gamedata gamedata)
+    public void UpdateExecutors(Gamedata gamedata)
     {
         for (int i = 0; i < executorRegistry.Count; i++)
         {
@@ -11,7 +11,7 @@ public static class Register
         }
     }
 
-    public static void LateUpdateExecutors(Gamedata gamedata)
+    public void LateUpdateExecutors(Gamedata gamedata)
     {
         for (int i = 0; i < executorRegistry.Count; i++)
         {

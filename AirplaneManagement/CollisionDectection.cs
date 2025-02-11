@@ -30,5 +30,27 @@ public static class CollisionDetection
         return corners;
     }
 
+    public static bool GetCollsionOnRoute(Vector2 point, Route route)
+    {
+        for (int i = 0; i < route.points.Length - 1; i++)
+        {
+            Vector2[] corners = new Vector2[4];
+            Vector2 dir = Vector2.Normalize(route.points[i] - route.points[i + 1]);
 
+            corners[0] = new Vector2(-dir.Y, dir.X) + route.points[i];
+            corners[1] = new Vector2(dir.Y, -dir.X) + route.points[i];
+            corners[2] = new Vector2(dir.Y, -dir.X) + route.points[i + 1];
+            corners[3] = new Vector2(-dir.Y, dir.X) + route.points[i + 1];
+
+            if (Raylib.CheckCollisionPointTriangle(point, corners[0], corners[1], corners[2]))
+            {
+                return true;
+            }
+            else if (Raylib.CheckCollisionPointTriangle(point, corners[3], corners[2], corners[0]))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

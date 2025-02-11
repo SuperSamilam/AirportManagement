@@ -11,6 +11,12 @@ public class AirportUpgrader : Executor
 
     public void Update(Gamedata gamedata)
     {
+        int upgradeCost = 0;
+        if (airportSelected)
+        {
+            upgradeCost = (int)(selectedAirport.maxPassengers * selectedAirport.maxPassengers / 2f);
+        }
+
         if (Raylib.IsMouseButtonPressed(MouseButton.Left) && airportSelected)
         {
             if (!Raylib.CheckCollisionPointRec(GlobalData.Instance.CalculatedValue, new Rectangle(selectedAirport.position.X - 75, (int)selectedAirport.position.Y - 110, 150, 100)))
@@ -19,6 +25,12 @@ public class AirportUpgrader : Executor
             }
             if (Raylib.CheckCollisionPointRec(GlobalData.Instance.CalculatedValue, new Rectangle((int)selectedAirport.position.X - 50, (int)selectedAirport.position.Y - 45, 100, 30)))
             {
+                if (gamedata.money < upgradeCost)
+                {
+                    return;
+                }
+
+                gamedata.money -= upgradeCost;
                 selectedAirport.Upgrade();
             }
         }
@@ -49,7 +61,7 @@ public class AirportUpgrader : Executor
             Raylib.DrawText(selectedAirport.cargo.Count + "/" + selectedAirport.maxCargo + " cargo", (int)selectedAirport.position.X - width / 2, (int)selectedAirport.position.Y - 60, 15, Color.Black);
 
             Raylib.DrawRectangle((int)selectedAirport.position.X - 50, (int)selectedAirport.position.Y - 45, 100, 30, Color.Green);
-            Raylib.DrawText("Upgrade", (int)selectedAirport.position.X - 50 + 20, (int)selectedAirport.position.Y - 45 + 8, 15, Color.Black);
+            Raylib.DrawText("Upgrade " + upgradeCost, (int)selectedAirport.position.X - 50 + 20, (int)selectedAirport.position.Y - 45 + 8, 15, Color.Black);
         }
 
     }

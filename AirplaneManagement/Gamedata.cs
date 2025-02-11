@@ -3,11 +3,13 @@ public class Gamedata
     public List<Airport> airports;
     public List<Route> routes;
     public int money;
+    public bool unlockedCargo; 
 
     public Gamedata()
     {
         airports = new List<Airport>();
         routes = new List<Route>();
-        money = 2000;
+        money = 20000;
+        unlockedCargo = false;
     }   
 }
