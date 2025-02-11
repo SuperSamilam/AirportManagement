@@ -1,0 +1,26 @@
+Welcome To Airplane management
+This game is inspired heavily by Fly corp by Kishmish games
+But all code is made by myself
+
+How to play
+Every x seconds a new airport will unlock
+You can click on airports to upgrade their capacity
+If they get to full you will lose :(
+They will have a red color if they get to full
+After you unlocked x airports the airports will now be splited, one side is (left)green and the other (right)dark green
+The right side shows how much cargo space you have left, the left side shows how much passanger space you have left
+
+There are also 2 different types of planes. Make sure you always have all the planes
+You can upgrade planes and they will then have more capacity and go faster
+
+You can also click on a route to buy more planes for that route.
+When you unlock cargo rember to buy cargoplanes because you do not get thoose
+
+To build a new route right click and hold on an airport then drag and realse on the second airport and you will create a new route if you get enough money
+
+BE WARE THIS GAME IS NOT BALANCED
+
+
+
+TILL MICKE
+Alla mina Update och LateUpdate methoder är inte kommenterade, det är kommenterade i Executor.cs en gång

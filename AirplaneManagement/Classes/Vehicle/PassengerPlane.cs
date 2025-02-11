@@ -12,6 +12,8 @@ public class PassengerPlane : Plane
         Raylib.LoadTexture(@"Level5.png")
     };
     public List<Person> passangers;
+    
+    
     public PassengerPlane(Route route) : base(route)
     {
         passangers = new List<Person>();
@@ -33,7 +35,7 @@ public class PassengerPlane : Plane
         }
     }
 
-
+    //Loads/unloads the passangers
     public int Arrived()
     {
         base.Arrived();

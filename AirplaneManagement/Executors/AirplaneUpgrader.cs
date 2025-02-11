@@ -28,6 +28,15 @@ public class AirplaneUpgrader : Executor
             }
         }
 
+        //Makes it easy to see a plane is selected
+        if (isPlaneSelected)
+        {
+            if (plane.groundedTimeLeft <= 0)
+            {
+                Raylib.DrawTextureEx(plane.sprite, plane.pos, plane.rot, 0.1f, Color.Red);
+            }
+        }
+
 
     }
     public void LateUpdate(Gamedata gamedata)
@@ -57,7 +66,7 @@ public class AirplaneUpgrader : Executor
             Raylib.DrawRectangle(564, 580, 150, 50, Color.Green);
             Raylib.DrawText("Upgrade " + upgradeCost, 574, 585, 20, Color.Black);
 
-
+            //cant upgrade the plane if theese happend
             if (gamedata.money <= upgradeCost)
             {
                 return;
@@ -66,7 +75,8 @@ public class AirplaneUpgrader : Executor
             {
                 return;
             }
-
+            
+            //Checks if the player trys to upgrade plane
             if (Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), new Rectangle(564, 580, 150, 50)) && Raylib.IsMouseButtonPressed(MouseButton.Left))
             {
                 gamedata.money -= upgradeCost;

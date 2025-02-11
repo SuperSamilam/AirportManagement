@@ -8,6 +8,7 @@ public class Plane : Vehicle
     public Route route;
     public int currentPoint;
     public int dir;
+    public float stuckTime = 0;
 
     public float groundedTimeLeft;
 
@@ -18,8 +19,10 @@ public class Plane : Vehicle
         currentPoint = 0;
         dir = 1;
         groundedTimeLeft = 3;
+        stuckTime = 0;
     }
 
+    //Changed the direction of a plane
     public void Arrived()
     {
         groundedTimeLeft = 3f;

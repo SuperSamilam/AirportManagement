@@ -3,20 +3,20 @@ using Raylib_cs;
 public class Timer : Executor
 {
     float time;
-    float TimeUntilNextEvent;
+    float timeUntilNextEvent;
 
     TimerType timerType;
 
-    public Timer(float TimeUntilNextEvent, TimerType timerType)
+    public Timer(float timeUntilNextEvent, TimerType timerType)
     {
-        this.TimeUntilNextEvent = TimeUntilNextEvent;
+        this.timeUntilNextEvent = timeUntilNextEvent;
         this.timerType = timerType;
     }
 
     public void Update(Gamedata gamedata)
     {
         time += Raylib.GetFrameTime();
-        if (time >= TimeUntilNextEvent)
+        if (time >= timeUntilNextEvent)
         {
             time = 0;
             if (timerType == TimerType.AddAirport)
@@ -35,6 +35,7 @@ public class Timer : Executor
                 Random rand = new Random();
                 for (int i = 0; i < gamedata.airports.Count; i++)
                 {
+                    //Try to find an unqie desitniation, if possible create new passnager/cargo
                     Airport destination = gamedata.airports[rand.Next(0, gamedata.airports.Count)];
                     if (destination.id != gamedata.airports[i].id)
                     {
@@ -62,7 +63,7 @@ public class Timer : Executor
     {
         if (timerType == TimerType.AddAirport)
         {
-            Raylib.DrawText("Next airport in: " + (TimeUntilNextEvent - time).ToString("0"), 10, 10, 20, Color.Black);
+            Raylib.DrawText("Next airport in: " + (timeUntilNextEvent - time).ToString("0"), 10, 10, 20, Color.Black);
         }
     }
 

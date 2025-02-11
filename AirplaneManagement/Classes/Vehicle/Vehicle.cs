@@ -15,6 +15,7 @@ public class Vehicle : Gameobject
         level = 1;
     }
 
+    //Upgrades the plane basic variabels
     public void Upgrade()
     {
         if (level == 10)

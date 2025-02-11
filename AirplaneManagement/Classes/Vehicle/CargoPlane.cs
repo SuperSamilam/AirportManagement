@@ -23,6 +23,7 @@ public class CargoPlane : Plane
         sprite = sprites[0];
     }
 
+    //Calculate the total weight of cargo on a plane
     public int GetCargoWeight()
     {
         int weight = 0;
@@ -33,6 +34,7 @@ public class CargoPlane : Plane
         return weight;
     }
 
+    //Upgrades the plane
     public void Upgrade()
     {
         base.Upgrade();
@@ -49,6 +51,7 @@ public class CargoPlane : Plane
         maxWeight = level * levelWeightMultplier;
     }
 
+    //Loads/unloads cargo
     public int Arrived()
     {
         base.Arrived();
@@ -56,6 +59,7 @@ public class CargoPlane : Plane
         int income = (int)(route.dist/10f * cargo.Count) * 2;
 
         //figure out what airport plane is at
+        //this chould be a method
         Airport landedAirport = route.airportBase;
         Airport destinationAirport = route.airportSecond;
         if (currentPoint > route.points.Length / 2f)

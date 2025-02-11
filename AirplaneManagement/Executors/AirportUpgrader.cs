@@ -16,13 +16,13 @@ public class AirportUpgrader : Executor
 
         if (Raylib.IsMouseButtonPressed(MouseButton.Left) && isAirportSelected)
         {
-            //if click isent on box remove UI
+            //if clicking outside deselct it
             if (!Raylib.CheckCollisionPointRec(WorldMouse.Instance.Position, new Rectangle(airport.position.X - 75, (int)airport.position.Y - 110, 150, 100)))
             {
                 isAirportSelected = false;
             }
 
-            //Upgrade
+            //Upgrade it if clicked correcntly
             if (Raylib.CheckCollisionPointRec(WorldMouse.Instance.Position, new Rectangle((int)airport.position.X - 50, (int)airport.position.Y - 45, 100, 30)))
             {
                 if (gamedata.money < upgradeCost)

@@ -28,13 +28,16 @@ public class AirplaneMovement : Executor
 
                 //Moving
                 Vector2 dir = Vector2.Normalize(offsetPoint - plane.pos);
+                // Vector2 dir = Vector2.Normalize(offsetPoint - plane.lastPoint);
                 plane.pos += dir * plane.speed * delta * 10;
                 plane.rot = MathF.Atan2(dir.Y, dir.X) * 180f / MathF.PI + 90;
 
+                plane.stuckTime += delta;
+
                 //Handle when plane comes close enought to its goal
-                //WARNING - A bug exists here, sometimes the step size is to big causing the plane to be stuck at goalpos
+                //WARNING - A bug exists here, sometimes the step size is to big causing the plane to be stuck at goalpos this is solved with stucktime
                 Vector2 nextPos = plane.pos + dir * plane.speed * delta * 30; //Predicting the next position
-                if (Vector2.Dot(nextPos - offsetPoint, plane.pos - offsetPoint) < 0) 
+                if (Vector2.Dot(nextPos - offsetPoint, plane.pos - offsetPoint) < 0)
                 {
                     plane.currentPoint += plane.dir;
                     //Plane arrived at airport
@@ -42,7 +45,7 @@ public class AirplaneMovement : Executor
                     {
                         if (plane is PassengerPlane passengerPlane)
                         {
-                            gamedata.money += passengerPlane.Arrived();   
+                            gamedata.money += passengerPlane.Arrived();
 
                         }
                         if (plane is CargoPlane cargoPlane)
@@ -50,13 +53,29 @@ public class AirplaneMovement : Executor
                     }
                 }
 
-                
+                if (plane.stuckTime >= 15)
+                {
+                    plane.currentPoint += plane.dir;
+                    //Plane arrived at airport
+                    if (plane.currentPoint >= gamedata.routes[i].points.Length || plane.currentPoint <= -1)
+                    {
+                        if (plane is PassengerPlane passengerPlane)
+                        {
+                            gamedata.money += passengerPlane.Arrived();
+
+                        }
+                        if (plane is CargoPlane cargoPlane)
+                            cargoPlane.Arrived(); //Not implimeted yet
+                    }
+                }
+
                 Raylib.DrawTextureEx(plane.sprite, plane.pos, plane.rot, 0.1f, Color.White);
 
             }
 
         }
     }
+
 
     //When plane arrives do all stuff it needs to do
     void HandleGroundedPlane(Plane plane, Route route, float delta)
@@ -113,6 +132,7 @@ public class AirplaneMovement : Executor
         return GetOffsetPoint(route.points[plane.currentPoint], samplePoint, multplier);
     }
 
+    //Gets the offset point to follow because orgins are in the top left corner
     Vector2 GetOffsetPoint(Vector2 point, Vector2 refPoint, float multplier)
     {
         Vector2 goalPos = Vector2.Normalize(refPoint - point);

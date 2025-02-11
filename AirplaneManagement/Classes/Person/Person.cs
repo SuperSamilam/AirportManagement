@@ -24,7 +24,7 @@ public class Person
         }
     }
 
-    //BFS alogirhtm
+    //BFS alogirhtm to find desitnation from start
     public void CalculateRoute(List<Airport> airports, Airport currentAirport)
     {
         Queue<Airport> queue = new Queue<Airport>();
@@ -64,9 +64,9 @@ public class Person
                 }
             }
         }
-        // Console.WriteLine("No Paths exists");
     }
 
+    //Found a the destination with BFS find path taken to get there
     void ReconstructPath(Dictionary<Airport, Airport?> tree, Airport currentAirport)
     {
         route = new List<Airport>();

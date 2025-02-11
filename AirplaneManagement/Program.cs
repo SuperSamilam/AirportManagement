@@ -9,31 +9,21 @@ float screenWidth = 774, screenHeight = 681;
 Raylib.InitWindow((int)screenWidth, (int)screenHeight, "Game IDK");
 Raylib.SetTargetFPS(60);
 
-
-//Camera
-Camera2D camera = new Camera2D();
-camera.Zoom = 1f;
-camera.Offset = new Vector2(screenWidth / 2, screenHeight / 2);
-camera.Target = new Vector2(screenWidth / 2, screenHeight / 2);
-camera.Rotation = 0;
+//Makes sure all executors exists
+#region Executors
 
 //Executors
 Drawer drawer = new Drawer();
 Movement movement = new Movement();
 RouteBuilder routeBuilder = new RouteBuilder();
 Timer addAirportTimer = new Timer(40, TimerType.AddAirport);
-Timer addPassengerTimer = new Timer(1, TimerType.AddPassenger);
+Timer addPassengerTimer = new Timer(10, TimerType.AddPassenger);
 
 AirportUpgrader airportUpgrader = new AirportUpgrader();
 AirplaneMovement airplaneMovement = new AirplaneMovement();
 RouteHandler routeHandler = new RouteHandler();
 AirplaneUpgrader airplaneUpgrader = new AirplaneUpgrader();
-
 WinController winController = new WinController();
-
-//Debug 
-data.airports.Add(Airport.GetAirport(0));
-data.airports.Add(Airport.GetAirport(1));
 
 Register register = new();
 register.executorRegistry.Add(drawer);
@@ -46,42 +36,39 @@ register.executorRegistry.Add(airplaneMovement);
 register.executorRegistry.Add(airplaneUpgrader);
 register.executorRegistry.Add(routeHandler);
 register.executorRegistry.Add(winController);
+#endregion
+
+data.airports.Add(Airport.GetAirport(0));
+data.airports.Add(Airport.GetAirport(1));
 
 while (!Raylib.WindowShouldClose())
 {
 
   Raylib.BeginDrawing();
 
-
-  Raylib.BeginMode2D(camera);
-
+  Raylib.BeginMode2D(movement.camera);
+  
+  //if havent lost game call all fucntions the make game work
   if (data.alive)
   {
-    //This is gets the mouse position based on the camera position
-    WorldMouse.Instance.UpdateValue(camera);
     Raylib.ClearBackground(Color.Black);
-
-
+    
+    WorldMouse.Instance.UpdateValue(movement.camera);
     register.UpdateExecutors(data);
-    camera.Target = movement.position;
-    camera.Zoom = movement.zoom;
+
     Raylib.EndMode2D();
 
     register.LateUpdateExecutors(data);
-
-    //Dont draw money here?
-    Raylib.DrawText("Money: " + data.money, 10, 35, 20, Color.Black);
   }
-  else
+  else //Lost the game reset position and draw losescreen
   {
-    camera.Zoom = 1f;
-    camera.Target = new Vector2(0, 0);
-    camera.Rotation = 0;
+    movement.ResetCamera();
     drawer.Update(data);
   }
 
   Raylib.EndDrawing();
 
+  //unlock cargo
   if (data.airports.Count >= 0)
   {
     data.unlockedCargo = true;

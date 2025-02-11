@@ -10,6 +10,7 @@ public class Drawer : Executor
 
     public void LateUpdate(Gamedata gamedata)
     {
+        Raylib.DrawText("Money: " + gamedata.money, 10, 35, 20, Color.Black);
     }
 
     public void Update(Gamedata gamedata)
@@ -24,6 +25,7 @@ public class Drawer : Executor
         }
     }
 
+    //Draws all the airports
     void DrawAirports(Gamedata data)
     {
         for (int i = 0; i < data.airports.Count; i++)
@@ -42,6 +44,7 @@ public class Drawer : Executor
         }
     }
 
+    //Draws all the routes
     void DrawRoutes(Gamedata data)
     {
         for (int i = 0; i < data.routes.Count; i++)
@@ -53,6 +56,7 @@ public class Drawer : Executor
         }
     }
 
+    //Draws the world
     void DrawWorld(Gamedata data)
     {
         Raylib.DrawTexture(water, -1000, -1000, Color.White);

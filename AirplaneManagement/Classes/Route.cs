@@ -23,12 +23,14 @@ public class Route : Gameobject
         AddNewPassangerPlane();
     }
 
+    //Create new passanger plane for this route
     public void AddNewPassangerPlane()
     {
         PassengerPlane plane = new PassengerPlane(this);
         planes.Add(plane);
     }
 
+    //Create new cargo plane for this route
     public void AddNewCargoPlane()
     {
         CargoPlane plane = new CargoPlane(this);

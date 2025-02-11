@@ -61,6 +61,7 @@ public class Airport : Building
     public int maxCargo = 6;
     public List<Cargo> cargo;
 
+    
     public Airport(string name, Vector2 position) : base(name, position)
     {
         level = 1;
@@ -69,11 +70,13 @@ public class Airport : Building
         routes = new List<Route>();
     }
 
+    //Check if mouse is on this airport
     public bool PressedAirport()
     {
         return Raylib.CheckCollisionPointRec(WorldMouse.Instance.Position, new Rectangle(position.X - 12, position.Y - 12, 24, 24));
     }
 
+    //Upgrades the airport
     public void Upgrade()
     {
         level++;
@@ -96,6 +99,7 @@ public class Airport : Building
         }
     }
 
+    //Make sure cargos routes are correct
     public void HandleArrivingCargo()
     {
         for (int i = cargo.Count - 1; i >= 0; i--)
@@ -122,6 +126,18 @@ public class Airport : Building
         }
     }
 
+    //Get the total cargo weight in the airport
+    public int GetCargoWeight()
+    {
+        int cargoWeight = 0;
+        for (int i = 0; i < cargo.Count; i++)
+        {
+            cargoWeight += cargo[i].weight;
+        }
+
+        return cargoWeight;
+    }
+    
     //Upgdates all airports passangers routes
     public static void UpdateAllPassangerRoutes(List<Airport> airports)
     {
@@ -140,7 +156,7 @@ public class Airport : Building
         //Find 3 closest airports
         for (int i = 0; i < 3; i++)
         {
-            Airport closestAirport = null;
+            Airport? closestAirport = null;
             float closestDistance = float.MaxValue;
             foreach (Airport airport in airports)
             {
@@ -154,7 +170,8 @@ public class Airport : Building
                     }
                 }
             }
-            closestAirports.Add(closestAirport);
+            if (closestAirport != null)
+                closestAirports.Add(closestAirport);
         }
 
         if (closestAirports.Count == 0)
@@ -165,20 +182,11 @@ public class Airport : Building
         //choose one of the 3 closests airports
         return closestAirports[new Random().Next(0, closestAirports.Count)];
     }
-
+    
+    //Get starter airports
     public static Airport GetAirport(int n)
     {
         return airports[n];
     }
 
-    public int GetCargoWeight()
-    {
-        int cargoWeight = 0;
-        for (int i = 0; i < cargo.Count; i++)
-        {
-            cargoWeight += cargo[i].weight;
-        }
-
-        return cargoWeight;
-    }
 }

@@ -1,6 +1,7 @@
 using System.Numerics;
 using Raylib_cs;
 
+//SINGELTON :)
 public class WorldMouse
 {
     static WorldMouse instance;
@@ -22,6 +23,7 @@ public class WorldMouse
         }
     }
 
+    //Make sure world mouse pos works
     public void UpdateValue(Camera2D camera)
     {
         position = Raylib.GetScreenToWorld2D(Raylib.GetMousePosition(), camera);
