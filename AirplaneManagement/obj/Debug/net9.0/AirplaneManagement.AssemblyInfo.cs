@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AirplaneManagement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+321a5608fc3071a96a3443f67698af9e1169347e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0e0e6bfc9bd185091ab19cc2c405750036952f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("AirplaneManagement")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AirplaneManagement")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

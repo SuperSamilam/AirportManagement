@@ -14,7 +14,7 @@ public class Airport : Building
   new Airport("Sundsvall", new Vector2(-30,-20)), //sundsvall
   new Airport("Luleå", new Vector2(80,-160)), //Luleå
   new Airport("Jönköping", new Vector2(-100,140)), //Jönköping
-  new Airport("Kuruna", new Vector2(0,-230)), //Kiruna
+  new Airport("Kiruna", new Vector2(0,-230)), //Kiruna
   new Airport("Åre", new Vector2(-160,-60)), //Åre
 
   new Airport("Oslo", new Vector2(-220,60)), //Oslo

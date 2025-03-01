@@ -69,7 +69,7 @@ while (!Raylib.WindowShouldClose())
   Raylib.EndDrawing();
 
   //unlock cargo
-  if (data.airports.Count >= 0)
+  if (data.airports.Count >= 20)
   {
     data.unlockedCargo = true;
   }

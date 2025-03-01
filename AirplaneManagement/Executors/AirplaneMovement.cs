@@ -40,6 +40,7 @@ public class AirplaneMovement : Executor
                 if (Vector2.Dot(nextPos - offsetPoint, plane.pos - offsetPoint) < 0)
                 {
                     plane.currentPoint += plane.dir;
+                    plane.stuckTime = 0;
                     //Plane arrived at airport
                     if (plane.currentPoint >= gamedata.routes[i].points.Length || plane.currentPoint <= -1)
                     {
@@ -56,6 +57,7 @@ public class AirplaneMovement : Executor
                 if (plane.stuckTime >= 15)
                 {
                     plane.currentPoint += plane.dir;
+                    plane.stuckTime = 0;
                     //Plane arrived at airport
                     if (plane.currentPoint >= gamedata.routes[i].points.Length || plane.currentPoint <= -1)
                     {
